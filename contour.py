@@ -28,24 +28,37 @@ resultImg = (img).copy()
 contour = []
 #Perulangan untuk kontur
 for i in range(len(contours)):
-        #Banyaknya kontur ke variable cnt
-        cnt = contours[i]
-        #Mencari radius untuk menggambar lingkaran
-        (x,y),radius = cv2.minEnclosingCircle(cnt)
-        #Pusat lingkaran
-        center = (int(x),int(y))
-        #Jika radius(kontur ukuran > 35 px ) diaanggap bukan ukuran cap
-        if(int(radius) > 35 ):
-            contour.append(cnt)
-            #Gambar lingkaran
-            resultImg = cv2.circle(resultImg,center,int(radius),(255,0,0),3)
+    #Banyaknya kontur ke variable cnt
+    cnt = contours[i]
+    #Mencari radius untuk menggambar lingkaran
+    (x,y),radius = cv2.minEnclosingCircle(cnt)
+    #Pusat lingkaran
+    center = (int(x),int(y))
+    #Jika radius(kontur ukuran > 35 px ) diaanggap bukan ukuran cap
+    if(int(radius) > 35 ):
+        contour.append(cnt)
+        #Gambar lingkaran
+        resultImg = cv2.circle(resultImg,center,int(radius),(255,0,0),3)
 
-#add text
-text = "Jumlah Botol : " + str(len(contour)) 
-cv2.putText(resultImg, text, (500, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2) 
+if len(contour) == 24:
+    #add text
+    text = "Jumlah Botol pas : " + str(len(contour)) + " pcs" 
+    cv2.putText(resultImg, text, (500, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2) 
+    cv2.imshow('image',resultImg)
+elif len(contour) > 24:
+    #add text
+    text = "Jumlah Botol lebih : " + str(len(contour)) + " pcs" 
+    cv2.putText(resultImg, text, (500, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0,255), 2) 
+    cv2.imshow('image',resultImg)
+else:
+    #add text
+    text = "Jumlah Botol kurang : " + str(len(contour)) + " pcs" 
+    cv2.putText(resultImg, text, (500, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2) 
+    cv2.imshow('image',resultImg)
 
-#Tampilkan
-cv2.imshow('image',resultImg)
+
+
+
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
