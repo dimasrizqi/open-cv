@@ -2,7 +2,7 @@ import cv2
 import numpy as np 
 
 # Load image 
-image = cv2.imread('c://Intel//python//test1//blobs.jpg')
+image = cv2.imread('c://Intel//python//test1//blobs2.jpeg')
 # image = cv2.imread('c://Intel//python//test1//blobs1.jpeg')
 
 
