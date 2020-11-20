@@ -8,10 +8,10 @@ while True:
     ret, frame = video.read()
     hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+    #white lable 180, 190, 175 180, 210, 255
+    lower = np.array([180, 190, 175], dtype=np.uint8)
+    upper = np.array([80, 210, 255] , dtype=np.uint8)
     
-    # green
-    lower = np.array([50, 100, 100], dtype=np.uint8)
-    upper = np.array([70, 255, 255] , dtype=np.uint8)
     mask = cv2.inRange(hsv, lower, upper)
     kernel = np.ones((10,10),np.uint8)
     #Dipertembal piksel objek
@@ -35,7 +35,7 @@ while True:
         #Pusat lingkaran
         center = (int(x),int(y))
         #Jika radius(kontur ukuran > 35 px ) diaanggap bukan ukuran cap
-        if int(radius) > 35 and int(radius) < 100 :
+        if int(radius) > 35 and int(radius) < 100:
             contour.append(cnt)
             #Gambar lingkaran
             resultImg = cv2.circle(resultImg,center,int(radius),(255,0,0),3)
